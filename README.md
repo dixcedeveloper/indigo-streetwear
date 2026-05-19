@@ -21,6 +21,10 @@ If you are developing a production application, we recommend using TypeScript wi
 
 ## Credits
 
-Icons used from Unicons by Iconscout
-Licensed under Apache 2.0
-https://iconscout.com/unicons
+Icons used in this project:
+
+- Unicons by Iconscout — Licensed under Apache 2.0  
+  https://iconbuddy.com/uil
+
+- Akar Icons by Arturo Wibawa — Licensed under MIT  
+  https://iconbuddy.com/akar-icons

@@ -356,6 +356,19 @@ useEffect(() => {
     }
   }, [selectedCategory])
 
+// useEffect para bloquear scroll cuando el modal de producto está abierto
+useEffect(() => {
+  if (selectedProduct) {
+    document.body.style.overflow = 'hidden'
+  } else {
+    document.body.style.overflow = 'auto'
+  }
+
+  return () => {
+    document.body.style.overflow = 'auto'
+  }
+}, [selectedProduct])
+
   // Función para aplicar filtro (usada por "Confirmar")
   const applyFilter = () => {
     // Aquí podrías agregar lógica extra si "Confirmar" hace algo especial, pero por ahora solo asegura el filtro
@@ -408,13 +421,38 @@ useEffect(() => {
     })
   }
 
-  // Splash screen - video de introducción
+ // Splash screen
 if (showSplash) {
   return (
     <div className="splash-screen">
-      <video autoPlay muted className="splash-video">
-        <source src="/assets/video/logo.mp4" type="video/mp4" />
+
+      {/* VIDEO PC */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="splash-video-pc"
+      >
+        <source
+          src="/assets/video/logo.mp4"
+          type="video/mp4"
+        />
       </video>
+
+      {/* WEBM TRANSPARENTE MÓVIL */}
+      <video
+        autoPlay
+        muted
+        playsInline
+        className="splash-video-mobile"
+      >
+        <source
+          src="/assets/video/transparent-logo.webm"
+          type="video/webm"
+        />
+      </video>
+
     </div>
   )
 }
@@ -651,10 +689,67 @@ if (showSplash) {
                       <h3>Visión</h3>
                       <p>Convertirnos en una marca reconocida por ofrecer streetwear auténtico, moderno y accesible para quienes buscan expresar su estilo propio.</p>
                     </div>
+                    
                   </div>
                 </div>
+                <div className="about-community">
+                      <h3>Únete a nuestra comunidad</h3>
+
+                      <div className="about-community-icons">
+                        <a
+                          href="https://www.instagram.com/indigostreetwearmx/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <img src="/assets/images/icons/instagram.svg" alt="Instagram" />
+                        </a>
+
+                        <a
+                          href="https://www.facebook.com/INDIGOstreetwearMX/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <img src="/assets/images/icons/facebook.svg" alt="Facebook" />
+                       </a>
+
+                        <a
+                          href="https://wa.me/521234567890"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <img src="/assets/images/icons/whatsapp.svg" alt="WhatsApp" />
+                        </a>
+                      </div>
+                    </div>
               </section>
             )}
+
+
+{/* MOBILE BOTTOM NAVBAR */}
+<div className="mobile-navbar">
+
+  <button
+    className={`mobile-nav-btn ${activeSection === 'home' ? 'active' : ''}`}
+    onClick={() => setActiveSection('home')}
+  >
+    <img src="/assets/images/icons/home.svg" alt="Inicio" />
+  </button>
+
+  <button
+    className={`mobile-nav-btn ${activeSection === 'about' ? 'active' : ''}`}
+    onClick={() => setActiveSection('about')}
+  >
+    <img src="/assets/images/icons/indigo.svg" alt="Sobre Nosotros" />
+  </button>
+
+  <button
+    className={`mobile-nav-btn ${activeSection === 'catalog' ? 'active' : ''}`}
+    onClick={() => setActiveSection('catalog')}
+  >
+    <img src="/assets/images/icons/shop.svg" alt="Catálogo" />
+  </button>
+
+</div>            
 
 
 {/* ========== MODAL DE PRODUCTO EXPANDIDO - TIPO INSTAGRAM ========== */}
@@ -693,23 +788,28 @@ if (showSplash) {
   return (
     <div className="product-modal" onClick={() => setSelectedProduct(null)}>
       <div className="product-modal-content" onClick={(e) => e.stopPropagation()}>
+        <button className="modal-close" onClick={() => setSelectedProduct(null)}>
+          <img src="/assets/images/icons/cross.svg" alt="Cerrar" />
+        </button>
         {/* LADO IZQUIERDO - IMÁGENES */}
         <div className="modal-left">
           {/* Imagen principal con efecto zoom */}
           <div 
             className="modal-main-image"
             onMouseMove={(e) => {
-            const rect = e.currentTarget.getBoundingClientRect()
+  if (window.innerWidth <= 768) return
 
-            const x = ((e.clientX - rect.left) / rect.width) * 100
-            const y = ((e.clientY - rect.top) / rect.height) * 100
+  const rect = e.currentTarget.getBoundingClientRect()
 
-            setZoomPosition({ x, y })
+  const x = ((e.clientX - rect.left) / rect.width) * 100
+  const y = ((e.clientY - rect.top) / rect.height) * 100
 
-            setMousePosition({
-              x: e.clientX,
-              y: e.clientY,
-            })
+  setZoomPosition({ x, y })
+
+  setMousePosition({
+    x: e.clientX,
+    y: e.clientY,
+  })
 
             setShowZoom(true)
           }}
@@ -760,9 +860,7 @@ if (showSplash) {
         {/* LADO DERECHO - INFORMACIÓN */}
         <div className="modal-right">
           {/* Botón cerrar */}
-          <button className="modal-close" onClick={() => setSelectedProduct(null)}>
-            ✕
-          </button>
+
 
           {/* Info del producto */}
           <h2 className="modal-product-name">{product.name}</h2>

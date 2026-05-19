@@ -1,4 +1,5 @@
 /* ========== SPLASH SCREEN ========== */
+
 .splash-screen {
   position: fixed;
   top: 0;
@@ -12,12 +13,37 @@
   z-index: 9999;
 }
 
-.splash-video {
+/* VIDEO PC */
+
+.splash-video-pc {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  display: block;
 }
 
+/* VIDEO MÓVIL */
+
+.splash-video-mobile {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: none;
+}
+
+/* ===== TELÉFONO ===== */
+
+@media (max-width: 768px) {
+
+  .splash-video-pc {
+    display: none;
+  }
+
+  .splash-video-mobile {
+    display: block;
+  }
+
+}
 /* ---------- Fondo de marca ---------- */
 .app-layout {
   display: grid;
@@ -28,7 +54,7 @@
   /* AGREGAR ESTAS LÍNEAS: */
   background-image: url('/assets/images/logo_white.png');
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: center 600px; 
   background-size: 30%; /* Ajusta el tamaño como quieras */
   background-attachment: fixed;
   background-color: #111; /* El color de fondo sigue siendo #111 */
@@ -604,6 +630,48 @@
   color: #b7b7b7;
 }
 
+.about-community {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.about-community h3 {
+  color: #fff;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.about-community-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.about-community-icons a {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.05);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: all 0.25s ease;
+}
+
+.about-community-icons a:hover {
+  transform: translateY(-3px);
+  background: rgba(79, 62, 195, 0.25);
+}
+
+.about-community-icons img {
+  width: 24px;
+  height: 24px;
+  filter: invert(1);
+}
+
 /* ---------- Catálogo ---------- */
 .catalog-section {
   background: #161616;
@@ -913,6 +981,10 @@
   z-index: 2000;
   padding: 1rem;
   overflow-y: auto;
+  position: fixed;
+  inset: 0;
+  padding-bottom: 80px;
+  box-sizing: border-box;
 }
 
 .product-modal-content {
@@ -1011,23 +1083,40 @@
 
 .modal-close {
   position: absolute;
-  top: -0.5rem;
-  right: -0.5rem;
-  background: transparent;
+  top: 1rem;
+  right: 1rem;
+
+  width: 42px;
+  height: 42px;
+
   border: none;
-  color: #fff;
-  font-size: 2rem;
-  cursor: pointer;
-  width: 44px;
-  height: 44px;
+  border-radius: 50%;
+
+  background: rgba(0, 0, 0, 0.493);
+  backdrop-filter: blur(10px);
+
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: color 0.2s ease;
+
+  cursor: pointer;
+
+  z-index: 500;
+
+  transition: all 0.2s ease;
+}
+.modal-close img {
+  width: 28px;
+  height:28px;
+
+  filter: invert(1);
+
+  opacity: 0.9;
 }
 
 .modal-close:hover {
-  color: #ccc;
+  background: rgba(79, 62, 195, 0.45);
+  transform: scale(1.05);
 }
 
 .modal-product-name {
@@ -1146,4 +1235,280 @@
 }
 
 
+.mobile-navbar {
+  display: none;
+}
 
+.splash-fade-top,
+.splash-fade-bottom {
+  display: none;
+}
+
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+
+  .app-layout {
+  display: block;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.center-space {
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
+  display: block;
+}
+
+.page-shell {
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
+}
+
+.main-content {
+  width: 100%;
+}
+
+.content-area {
+  width: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+  /* Oculta espacios laterales */
+.left-space,
+.right-space {
+  display: none !important;
+}
+
+.contact-widget {
+  display: none !important;
+}
+
+/* Ocultar navegación vieja */
+.tab-bar,
+.tab-bar.sticky,
+.menu-toggle,
+.menu-toggle-sticky {
+  display: none !important;
+}
+
+.topbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.brand-logo {
+  height: 80px;
+}
+
+  /* Center ocupa toda la pantalla */
+.center-space {
+  flex: 1;
+  width: 100%;
+  max-width: 100%;
+  min-width: 100%;
+
+  display: flex;
+  justify-content: center;
+
+  padding: 0;
+}
+.main-content {
+  width: 100%;
+}
+
+.content-area {
+  width: 100%;
+}
+
+  .page-shell {
+    width: 100%;
+    padding: 0;
+  }
+
+  /* Hero más compacto */
+  .hero-section {
+    padding: 1rem;
+  }
+
+  .hero-copy h1 {
+    font-size: 2rem;
+    line-height: 1.1;
+  }
+
+  /* Slider */
+  .hero-slider {
+    border-radius: 18px;
+    overflow: hidden;
+  }
+
+  /* About */
+  .about-card {
+    padding: 1.25rem;
+  }
+
+  .about-details {
+    grid-template-columns: 1fr;
+  }
+
+  /* Grid catálogo */
+  .catalog-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  /* Modal responsive */
+  .product-modal-content {
+    width: 95%;
+    max-width: 95%;
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    flex-direction: column;
+    padding: 1rem;
+    border-radius: 18px;
+  }
+
+  .modal-left,
+  .modal-right {
+    width: 100%;
+  }
+
+.modal-main-image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  }
+  
+
+ .modal-main-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+
+
+  /* Ocultar zoom en celular */
+  .zoom-viewer {
+    display: none !important;
+  }
+
+  /* Thumbnails */
+  .modal-thumbnails {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .thumbnail {
+    width: 64px;
+    height: 64px;
+  }
+
+  /* Botón compra */
+  .modal-buy-button {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Barra sticky */
+  .tab-bar.sticky {
+    padding: 0.8rem;
+  }
+
+  /* Sidebar más limpia */
+  .sidebar {
+    width: 85%;
+  }
+
+
+  
+
+ /* =========================
+   MOBILE NAVBAR
+========================= */
+
+
+
+@media (max-width: 768px) {
+
+  .mobile-navbar {
+    position: fixed;
+
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+
+    height: 72px;
+
+    background: rgba(15, 15, 15, 0.96);
+
+    backdrop-filter: blur(12px);
+
+    border-top: 1px solid rgba(255,255,255,0.06);
+
+    display: flex;
+
+    justify-content: space-around;
+    align-items: center;
+
+    z-index: 5000;
+  }
+
+  .mobile-nav-btn {
+    background: transparent;
+    border: none;
+
+    width: 54px;
+    height: 54px;
+
+    border-radius: 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: all 0.25s ease;
+  }
+
+  .mobile-nav-btn img {
+    width: 24px;
+    height: 24px;
+
+    filter: invert(1);
+
+    opacity: 0.75;
+  }
+
+  .mobile-nav-btn.active {
+    background: rgba(79, 62, 195, 0.18);
+  }
+
+  .mobile-nav-btn.active img {
+    opacity: 1;
+  }
+
+  /* espacio para navbar */
+  .content-area {
+    padding-bottom: 100px;
+  }
+}
+
+
+.center-space {
+  padding-top: 70px;
+  padding-bottom: 90px;
+  box-sizing: border-box;
+}
+ 
+}
